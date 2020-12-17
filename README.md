@@ -2,26 +2,26 @@
 Zeekctl plugin for automatically executing 'setcap' on each node after an install
 
 ## On the Zeek Manager
-1. Drop the setcap.py plugin into /opt/zeek/lib/zeekctl/plugins/
+1. Drop the setcap.py plugin into <prefix>/lib/zeek/python/zeekctl/plugins
 2. Add the following lines to zeekctl.cfg (adjust accordingly for your installation)
 ```
 setcap.enabled=1
-setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/zeek/bin/zeek && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip /opt/zeek/bin/capstats
+setcap.command=sudo /sbin/setcap cap_net_raw,cap_net_admin=eip <prefix>/bin/zeek && sudo /sbin/setcap cap_net_raw,cap_net_admin=eip <prefix>/bin/capstats
 ```
 ## On each Node
 Edit the sudoers file (use `visudo`) and add the following lines to allow sudo execution (w/o password or tty) of setcap. If you're running Zeek as a different user, or from a different directory, adjust as necessary:
 
 ```
-Cmnd_Alias ZEEK_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip /opt/bro/bin/zeek
-Cmnd_Alias CAPSTATS_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip /opt/bro/bin/capstats
+Cmnd_Alias ZEEK_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip <prefix>/bin/zeek
+Cmnd_Alias CAPSTATS_SETCAP = /sbin/setcap cap_net_raw\,cap_net_admin=eip <prefix>/bin/capstats
 zeek ALL=NOPASSWD: ZEEK_SETCAP, CAPSTATS_SETCAP
 Defaults!/sbin/setcap !requiretty
 ```
 
 ## Test it Out
     [ZeekControl] > install
-    removing old policies in /data/bro/spool/installed-scripts-do-not-touch/site ... done.
-    removing old policies in /data/bro/spool/installed-scripts-do-not-touch/auto ... done.
+    removing old policies in /opt/zeek/spool/installed-scripts-do-not-touch/site ... done.
+    removing old policies in /opt/zeek/spool/installed-scripts-do-not-touch/auto ... done.
     creating policy directories ... done.
     installing site policies ... done.
     generating cluster-layout.zeek ... done.
