@@ -2,7 +2,7 @@
 Zeekctl plugin for automatically executing 'setcap' on each node after an install
 
 ## On the Zeek Manager
-1. Drop the setcap.py plugin into /opt/zeek/lib/zeek/python/zeekctl/plugins
+1. Drop the setcap.py plugin into /opt/zeek/lib/zeekctl/plugins/, or starting with version 4 of zeek /opt/zeek/lib/zeek/python/zeekctl/plugins
 2. Add the following lines to zeekctl.cfg (adjust accordingly for your installation)
 ```
 setcap.enabled=1
